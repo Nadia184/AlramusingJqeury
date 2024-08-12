@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alarm Clock</title>
+<style>
+    body {
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: black;
+  margin: 0;
+}
+.container{
+  display: flex;
+  background: url(giphy\ \(1\).gif) no-repeat center center/cover;
+  color: rgb(15, 1, 1);
+  width: 350px;
+  justify-content: center;
+  height: 450px;
+  align-items: center;
+  border-radius: 50px;
+  
+  
+}
+#alarm-clock {
+  text-align: center;
+}
+
+#time-display {
+  font-size: 2em;
+  margin: 20px;
+  font-weight: bolder;
+}
+
+#alarm-time {
+  font-size: 2rem;
+  margin: 10px;
+  background-color: transparent;
+  font-weight: bolder;
+}
+
+#set-alarm {
+  font-size: 1.5rem;
+  padding: 5px 20px;
+  cursor: pointer;
+  background-color: transparent;
+  font-weight: bolder;
+
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div id="alarm-clock">
+    <h1>Alarm Clock</h1>
+    <div id="time-display"></div>
+    <input type="time" id="alarm-time">
+    <button id="set-alarm">Set Alarm</button>
+    
+    <audio id="alarmSound" preload="auto" src="alarm.mp3"></audio>
+  </div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    $(document).ready(function() {
+  function updateTime() {
+    var currentTime = new Date();
+    var hours = currentTime.getHours();
+    var minutes = currentTime.getMinutes();
+    var seconds = currentTime.getSeconds();
+   
+
+    // Add leading zeros if needed
+    minutes = (minutes < 10 ? "0" : "") + minutes;
+    seconds = (seconds < 10 ? "0" : "") + seconds;
+
+    var formattedTime = hours + ":" + minutes + ":" + seconds;
+    $("#time-display").text(formattedTime);
+  }
+
+  // Update the time every second
+  setInterval(updateTime, 1000);
+
+  // Set alarm button click event
+  $("#set-alarm").click(function() {
+    var alarmTime = $("#alarm-time").val();
+    var alarmSound = $("#alarmSound")[0];
+
+    if (alarmTime) {
+      setInterval(function() {
+        var currentTime = new Date();
+        var formattedCurrentTime = currentTime.getHours() + ":" + currentTime.getMinutes();
+
+        if (formattedCurrentTime === alarmTime) {
+            alarmSound.play();}}, 1000); }
+             else {
+      alert("Please set the alarm time.");
+    }
+  });
+ 
+});
+
+  </script>
+</body>
+</html>
